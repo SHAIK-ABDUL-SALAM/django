@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
+{% block body %}
+
+<!------ Include the above in your HEAD tag ---------->
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form class="form-horizontal" action="{% url 'feedbackloginfunction' %}" method="POST" onsubmit="return validateForm()">
+                {% csrf_token %}
+                <fieldset>
+                    {% csrf_token %}
+
+                    <p class="text-center fw-bold fs-1">Welcome to Feedback Page</p>
+
+                    <br>
+                    <br>
+                    <div class="control-group">
+                        <!-- Username -->
+                        <label class="control-label fw-bold" for="name">Your Sweet Name Please</label>
+                        <div class="controls">
+                            <input type="text" id="name" name="name" pattern="[A-Za-z\s]+" title="Name should only contain alphabets and spaces" placeholder="Your Name Goes here!" class="input-xlarge" required>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="control-group">
+                        <!-- E-mail -->
+                        <label class="control-label fw-bold" for="email">E-mail</label>
+                        <div class="controls">
+                            <input type="email" id="email" name="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" title="Please enter a valid email address in the format mail@domain.extension" placeholder="mail@domain.extension" class="input-xlarge" required>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="control-group">
+                        <!-- Password-->
+                        <label class="control-label fw-bold" for="comment">Your Valuable Feedback</label>
+
+                        <div class="controls">
+                            <div class="col-sm-100">
+                                <textarea class="form-control" id="comment" rows="3" name="comment" placeholder="Please share your Feedback" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+
+                    <h3 class="text-center">Thank You For Visiting Us</h3>
+                    <h5 class="text-center">We will share your feedback to your email</h5>
+
+                    <br>
+                    <div class="control-group">
+                        <!-- Button -->
+                        <div class="controls">
+                            <button class="btn btn-success" type="submit">Submit</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+<br><br>
+<div>
+
+</div>
+<script>
+    function validateForm() {
+        var name = document.getElementById("name").value;
+        var email = document.getElementById("email").value;
+        var comment = document.getElementById("comment").value;
+
+        if (name.trim() === "" || email.trim() === "" || comment.trim() === "") {
+            alert("All fields are required!");
+            return false;
+        }
+
+        var nameFormat = /^[A-Za-z\s]+$/;
+        if (!name.match(nameFormat)) {
+            alert("Name should only contain alphabets and spaces!");
+            return false;
+        }
+
+        var emailFormat = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!email.match(emailFormat)) {
+            alert("Please enter a valid email address in the format mail@domain.extension");
+            return false;
+        }
+
+        return true;
+    }
+</script>
+{% endblock %}
+</html>
